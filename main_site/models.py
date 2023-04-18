@@ -43,3 +43,63 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class Storage(models.Model):
+    name = models.CharField('Название', max_length=20)
+    address = models.CharField('Адрес', max_length=30)
+
+    class Meta:
+        verbose_name = "Хранилище"
+        verbose_name_plural = "Хранилища"
+
+    def __str__(self):
+        return f'{self.name} - {self.address}'
+
+
+class Box(models.Model):
+    storage = models.ForeignKey(
+        Storage,
+        verbose_name='Хранилище',
+        on_delete=models.CASCADE
+    )
+    number = models.CharField(
+        'Номер бокса',
+        max_length=20,
+        unique=True
+    )
+    width = models.DecimalField('Ширина бокса')
+    length = models.DecimalField('Длина бокса')
+    height = models.DecimalField('Высота бокса')
+    floor = models.PositiveIntegerField('Этаж')
+
+    class Meta:
+        verbose_name = "Бокс"
+        verbose_name_plural = "Боксы"
+
+    def __str__(self):
+        return f'{self.storage} - №{self.number}'
+
+
+class Subscription(models.Model):
+    start_date = models.DateField('Начало аренды')
+    end_date = models.DateField('Конец аренды')
+    type = models.CharField('Тип подписки')
+
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+    )
+    box = models.ForeignKey(
+        Box,
+        verbose_name='Бокс',
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+
+    def __str__(self):
+        return f'{self.user.name} - №{self.box.number} до {self.end_date}'
