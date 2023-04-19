@@ -68,9 +68,9 @@ class Box(models.Model):
         max_length=20,
         unique=True
     )
-    width = models.DecimalField('Ширина бокса')
-    length = models.DecimalField('Длина бокса')
-    height = models.DecimalField('Высота бокса')
+    width = models.DecimalField('Ширина бокса', decimal_places=5, max_digits=10)
+    length = models.DecimalField('Длина бокса', decimal_places=5, max_digits=10)
+    height = models.DecimalField('Высота бокса', decimal_places=5, max_digits=10)
     floor = models.PositiveIntegerField('Этаж')
 
     class Meta:
@@ -84,7 +84,7 @@ class Box(models.Model):
 class Subscription(models.Model):
     start_date = models.DateField('Начало аренды')
     end_date = models.DateField('Конец аренды')
-    type = models.CharField('Тип подписки')
+    type = models.CharField('Тип подписки', max_length=10)
 
     user = models.ForeignKey(
         User,
