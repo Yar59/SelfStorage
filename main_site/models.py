@@ -56,6 +56,8 @@ class Storage(models.Model):
     address = models.CharField('Адрес', max_length=30)
     temperature = models.DecimalField('Температура на складе', decimal_places=2, max_digits=5)
     rental_price = models.DecimalField('Цена аренды', decimal_places=2, max_digits=8)
+    small_photo = models.ImageField(blank=True, verbose_name='Маленькое фото', default='image9.png')
+    large_photo = models.ImageField(blank=True, verbose_name='Большое фото', default='image2.png')
 
     class Meta:
         verbose_name = "Хранилище"
