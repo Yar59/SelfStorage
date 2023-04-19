@@ -80,8 +80,8 @@ class Box(models.Model):
         max_length=20,
         unique=True
     )
-    width = models.DecimalField('Ширина бокса', decimal_places=2, max_digits=5)
-    length = models.DecimalField('Длина бокса', decimal_places=2, max_digits=5)
+    square = models.DecimalField('Площадь бокса', decimal_places=2, max_digits=5)
+    volume = models.DecimalField('Объем бокса', decimal_places=2, max_digits=5)
     height = models.DecimalField('Высота бокса', decimal_places=2, max_digits=5)
     floor = models.PositiveIntegerField('Этаж')
 
