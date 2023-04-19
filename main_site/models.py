@@ -49,6 +49,7 @@ class Storage(models.Model):
     name = models.CharField('Название', max_length=20)
     address = models.CharField('Адрес', max_length=30)
     temperature = models.DecimalField('Температура на складе', decimal_places=5, max_digits=10)
+    rental_price = models.DecimalField('Цена аренды', decimal_places=5, max_digits=10)
 
     class Meta:
         verbose_name = "Хранилище"
