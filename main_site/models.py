@@ -61,7 +61,8 @@ class Box(models.Model):
     storage = models.ForeignKey(
         Storage,
         verbose_name='Хранилище',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='boxes'
     )
     number = models.CharField(
         'Номер бокса',
@@ -95,6 +96,7 @@ class Subscription(models.Model):
         Box,
         verbose_name='Бокс',
         on_delete=models.CASCADE,
+        related_name='subscriptions'
     )
 
     class Meta:
