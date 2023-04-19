@@ -58,6 +58,7 @@ class Storage(models.Model):
     rental_price = models.DecimalField('Цена аренды', decimal_places=2, max_digits=8)
     small_photo = models.ImageField(blank=True, verbose_name='Маленькое фото', default='image9.png')
     large_photo = models.ImageField(blank=True, verbose_name='Большое фото', default='image2.png')
+    note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
 
     class Meta:
         verbose_name = "Хранилище"
