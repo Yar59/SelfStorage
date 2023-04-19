@@ -48,8 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Storage(models.Model):
     name = models.CharField('Название', max_length=20)
     address = models.CharField('Адрес', max_length=30)
-    temperature = models.DecimalField('Температура на складе', decimal_places=5, max_digits=10)
-    rental_price = models.DecimalField('Цена аренды', decimal_places=5, max_digits=10)
+    temperature = models.DecimalField('Температура на складе', decimal_places=2, max_digits=5)
+    rental_price = models.DecimalField('Цена аренды', decimal_places=2, max_digits=8)
 
     class Meta:
         verbose_name = "Хранилище"
@@ -71,9 +71,9 @@ class Box(models.Model):
         max_length=20,
         unique=True
     )
-    width = models.DecimalField('Ширина бокса', decimal_places=5, max_digits=10)
-    length = models.DecimalField('Длина бокса', decimal_places=5, max_digits=10)
-    height = models.DecimalField('Высота бокса', decimal_places=5, max_digits=10)
+    width = models.DecimalField('Ширина бокса', decimal_places=2, max_digits=5)
+    length = models.DecimalField('Длина бокса', decimal_places=2, max_digits=5)
+    height = models.DecimalField('Высота бокса', decimal_places=2, max_digits=5)
     floor = models.PositiveIntegerField('Этаж')
 
     class Meta:
