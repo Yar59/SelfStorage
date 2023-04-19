@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Storage, Box, Subscription
 from django.db.models import Count, Max
+from django.db.models import F
 
 
 def show_main_page(request):
@@ -23,14 +24,14 @@ def show_boxes(request):
     storages = Storage.objects.prefetch_related('boxes')
     context = {'storages': {}}
     for storage in storages:
-        free_boxes = storage.boxes.free()
+        free_boxes = storage.boxes.free().annotate(volume=F('width')*F('length')*F('height')).annotate(square=F('width')*F('length'))
         max_height = free_boxes.aggregate(box_max_height=Max('height'))['box_max_height']
         context['storages'][storage.pk] = {
             'info': storage,
             'free_boxes': free_boxes,
-            'boxes_vol_to_3': free_boxes.filter(height__lt=3),
-            'boxes_vol_to_10': free_boxes.filter(height__lt=10),
-            'boxes_vol_from_10': free_boxes.filter(height__gte=10),
+            'boxes_vol_to_3': free_boxes.filter(volume__lt=3),
+            'boxes_vol_to_10': free_boxes.filter(volume__lt=10),
+            'boxes_vol_from_10': free_boxes.filter(volume__gte=10),
             'max_height': max_height
         }
 
