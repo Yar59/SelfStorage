@@ -1,6 +1,12 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.db.models import Count
+
+
+class BoxQuerySet(models.QuerySet):
+    def free(self):
+        return self.annotate(subscriptions_count=Count('subscriptions')).filter(subscriptions_count=0)
 
 
 class UserManager(BaseUserManager):
@@ -83,6 +89,8 @@ class Box(models.Model):
     def __str__(self):
         return f'{self.storage} - №{self.number}'
 
+    objects = BoxQuerySet.as_manager()
+
 
 class Subscription(models.Model):
     start_date = models.DateField('Начало аренды')
@@ -107,3 +115,8 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f'{self.user.name} - №{self.box.number} до {self.end_date}'
+
+
+def action(query, value):
+    return query.extra(where=['number + 1 = %s'], params=[value])
+
