@@ -51,6 +51,7 @@ def show_faq(request):
 
 def login_view(request):
     if request.method == 'POST':
+
         user = authenticate(email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
         if user is not None:
             if user.is_active:
@@ -64,14 +65,17 @@ def login_view(request):
 
 def register_user(request):
     if request.method == 'POST':
+        print('dict', request.POST)
         try:
-            User.objects.get(email=request.POST['EMAIL'])
+            User.objects.get(email=request.POST['EMAIL_CREATE'])
+            return HttpResponse('This email is already taken')
         except User.DoesNotExist:
-            User.objects.create_user(email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
+            User.objects.create_user(email=request.POST['EMAIL_CREATE'], password=request.POST['PASSWORD_CREATE'])
 
-        user = authenticate(request, email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
+        user = authenticate(request, email=request.POST['EMAIL_CREATE'], password=request.POST['PASSWORD_CREATE'])
         if user is not None:
             login(request, user)
+        return redirect('main_site:my_rent')
 
 
 def logout_view(request):

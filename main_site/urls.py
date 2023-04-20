@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib import admin
+
 from .views import *
 
 app_name = 'main_site'
@@ -11,4 +11,5 @@ urlpatterns = [
     path('faq/', show_faq, name='faq'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('register/', register_user, name='register')
 ]
