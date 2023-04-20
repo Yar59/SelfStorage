@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from .models import Storage, Box, Subscription
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.db.models import Count, Max
 from django.db.models import F
+from django.contrib.auth import authenticate, login, logout
+
+from .models import Storage, Box, Subscription, User
 
 
 def show_main_page(request):
@@ -44,3 +47,34 @@ def show_my_rent(request):
 
 def show_faq(request):
     return render(request, template_name='faq.html', context={})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        user = authenticate(email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('main_site:my_rent')
+            else:
+                return HttpResponse('Disabled account')
+        else:
+            return HttpResponse('Invalid login')
+
+
+def register_user(request):
+    if request.method == 'POST':
+        try:
+            User.objects.get(email=request.POST['EMAIL'])
+        except User.DoesNotExist:
+            User.objects.create_user(email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
+
+        user = authenticate(request, email=request.POST['EMAIL'], password=request.POST['PASSWORD'])
+        if user is not None:
+            login(request, user)
+
+
+def logout_view(request):
+    logout(request)
+
+    return redirect('main_site:main')

@@ -9,4 +9,6 @@ urlpatterns = [
     path('boxes/', show_boxes, name='boxes'),
     path('my_rent/', show_my_rent, name='my_rent'),
     path('faq/', show_faq, name='faq'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]
