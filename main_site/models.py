@@ -56,8 +56,6 @@ class Storage(models.Model):
     address = models.CharField('Адрес', max_length=30)
     temperature = models.DecimalField('Температура на складе', decimal_places=2, max_digits=5)
     rental_price = models.DecimalField('Цена аренды', decimal_places=2, max_digits=8)
-    small_photo = models.ImageField(blank=True, verbose_name='Маленькое фото', default='image9.png')
-    large_photo = models.ImageField(blank=True, verbose_name='Большое фото', default='image2.png')
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
 
     class Meta:
@@ -93,6 +91,23 @@ class Box(models.Model):
         return f'{self.storage} - №{self.number}'
 
     objects = BoxQuerySet.as_manager()
+
+
+class Image(models.Model):
+    storage = models.ForeignKey(
+        Storage,
+        verbose_name='Хранилище',
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(blank=True, verbose_name='Фото склада')
+
+    class Meta:
+        verbose_name = 'Фотография склада'
+        verbose_name_plural = 'Фотографии склада'
+
+    def __str__(self):
+        return f'{self.storage.name} {self.id}'
 
 
 class Subscription(models.Model):
