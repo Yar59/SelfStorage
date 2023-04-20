@@ -117,7 +117,7 @@ class Subscription(models.Model):
         verbose_name_plural = "Подписки"
 
     def __str__(self):
-        return f'{self.user.name} - №{self.box.number} до {self.end_date}'
+        return f'{self.user.username} - №{self.box.number} до {self.end_date}'
 
 
 def action(query, value):
