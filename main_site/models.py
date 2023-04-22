@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Count
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class BoxQuerySet(models.QuerySet):
     def free(self):
         return self.annotate(subscriptions_count=Count('subscriptions')).filter(subscriptions_count=0)
@@ -45,8 +46,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
     def __str__(self):
         return self.username
@@ -60,8 +61,8 @@ class Storage(models.Model):
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
 
     class Meta:
-        verbose_name = "Хранилище"
-        verbose_name_plural = "Хранилища"
+        verbose_name = 'Хранилище'
+        verbose_name_plural = 'Хранилища'
 
     def __str__(self):
         return f'{self.name} - {self.address}'
@@ -85,8 +86,8 @@ class Box(models.Model):
     floor = models.PositiveIntegerField('Этаж')
 
     class Meta:
-        verbose_name = "Бокс"
-        verbose_name_plural = "Боксы"
+        verbose_name = 'Бокс'
+        verbose_name_plural = 'Боксы'
 
     def __str__(self):
         return f'{self.storage} - №{self.number}'
@@ -129,8 +130,8 @@ class Subscription(models.Model):
     )
 
     class Meta:
-        verbose_name = "Подписка"
-        verbose_name_plural = "Подписки"
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
 
     def __str__(self):
         return f'{self.user.username} - №{self.box.number} до {self.end_date}'
