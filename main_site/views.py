@@ -1,10 +1,12 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Count, Max
 from django.db.models import F
 from django.contrib.auth import authenticate, login, logout
 
-from .models import Storage, Box, Subscription, User
+from .models import *
+from .forms import *
 
 
 def show_main_page(request):
@@ -42,7 +44,26 @@ def show_boxes(request):
 
 
 def show_my_rent(request):
-    return render(request, template_name='my-rent.html', context={})
+    user = request.user
+    print(user)
+    subscriptions = Subscription.objects.filter(user=user)
+    if request.method == 'POST':
+        print(request.POST)
+        user_form = UserProfileForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Ваш профиль успешно обновлен.')
+            return redirect('main_site:my_rent')
+        else:
+            messages.error(request, 'Заполните все поля')
+            print('not work :c')
+    else:
+        user_form = UserProfileForm(instance=request.user)
+
+    return render(request, template_name='my-rent.html', context={
+        'subscriptions': subscriptions,
+        'user_form': user_form
+    })
 
 
 def show_faq(request):

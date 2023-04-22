@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Storage, Box, Subscription, Image
+from .models import Storage, Box, Subscription, Image, User
 
 
 class ImageInline(admin.TabularInline):
     model = Image
     readonly_fields = ['place_images']
     extra = 0
+
     def place_images(self, image_object):
 
         return format_html('<img src="{}" height=200px />', image_object.image.url)
@@ -34,3 +35,6 @@ class SubscriptionAdmin(admin.ModelAdmin):
 class ImageAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass

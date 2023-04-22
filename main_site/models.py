@@ -2,7 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.db.models import Count
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 class BoxQuerySet(models.QuerySet):
     def free(self):
@@ -36,6 +36,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('Имя', max_length=250, default='some_user')
     email = models.EmailField('Адрес электронной почты', max_length=50, unique=True)
+    phonenumber = PhoneNumberField('Номер телефона', blank=True, null=True)
     is_staff = models.BooleanField('Является ли менеджером?', default=False)
 
     USERNAME_FIELD = 'email'

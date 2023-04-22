@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'main_site.apps.MainSiteConfig',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
