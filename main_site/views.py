@@ -19,7 +19,8 @@ def show_main_page(request):
         'max_height': box_max_height,
         'rental_price': storage.rental_price,
         'total_boxes': storage.boxes_count,
-        'free_boxes': free_boxes.count()
+        'free_boxes': free_boxes.count(),
+        'images': storage.images
     }
 
     return render(request, template_name='index.html', context=storage)
