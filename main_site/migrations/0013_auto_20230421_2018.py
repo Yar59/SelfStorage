@@ -32,7 +32,7 @@ def create_storages(apps, schema_editor):
         Storage.objects.get_or_create(
             name=random.choice(names),
             address=address,
-            temperature=random.uniform(10.0, 25.0),
+            temperature=("%.2f" % random.uniform(10.0, 25.0)),
             rental_price=random.randrange(100, 300, 50),
             note=random.choice(notes)
         )
