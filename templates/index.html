@@ -222,11 +222,7 @@
 							</div>
 						</div>
 						<div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
-							{% if storage.images %}
-								<img src={{ storage.images.0.url }} width="290" height="290" class="rounded-pill mb-3" alt="">
-							{% else %}
-								<img src="{% static 'img/img1.png' %}" width="290" height="290" class="rounded-pill mb-3" alt="">
-							{% endif %}
+							<img src="{% static 'img/img1.png' %}" width="290" height="290" class="rounded-pill mb-3" alt="">
 							<span class="fw-bold">Катерина Петрова</span>
 							<span>Одинцово</span>
 						</div>
