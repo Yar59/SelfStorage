@@ -137,26 +137,21 @@
 							<div class="carousel-inner">
 								{% if storage.info.images %}
 									{% for image in storage.info.images.all %}
-										<div class="carousel-item active">
-												<div class="d-flex flex-column align-items-center">
-														<img src="{{ image.image.url }}" style="object-fit: cover; width: 500px; height: 355px;" alt="">
-												</div>
+										{% if forloop.first %}<div class="carousel-item active">{% else %}<div class="carousel-item">{% endif %}
+											<div class="d-flex flex-column align-items-center">
+												<img src="{{ image.image.url }}" style="object-fit: cover; width: 500px; height: 355px;" alt="">
+											</div>
 										</div>
 									{% endfor %}
 								{% else %}
 									{% for index in '12'|make_list %}
-										<div class="carousel-item active">
+										{% if forloop.first %}<div class="carousel-item active">{% else %}<div class="carousel-item">{% endif %}
 												<div class="d-flex flex-column align-items-center">
 													<img src="{% static 'img/image11.png' %}" alt="">
 												</div>
 										</div>
 									{% endfor %}
 								{% endif %}
-<!--								<div class="carousel-item">-->
-<!--									<div class="d-flex flex-column align-items-center">-->
-<!--										<img src={{ storage.info.large_photo.url }} alt="">-->
-<!--									</div>-->
-<!--								</div>-->
 							</div>
 							<div class="w-100 d-flex justify-content-center my-3">
 								<button data-bs-target="#carouselExampleControls1" data-bs-slide="prev" class="btn rounded-pill d-flex justify-content-center align-items-center SelfStorage__bg_green" style="width: 66px; height: 66px;">
