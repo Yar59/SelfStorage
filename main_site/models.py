@@ -128,6 +128,11 @@ class Subscription(models.Model):
         on_delete=models.CASCADE,
         related_name='subscriptions'
     )
+    latest_notification = models.DateField(
+        'Дата последнего уведомления',
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = 'Подписка'
