@@ -1,9 +1,12 @@
+from datetime import timedelta, datetime
+
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Count, Max
 from django.db.models import F
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
 
 from .models import *
 from .forms import *
@@ -47,7 +50,10 @@ def show_boxes(request):
 def show_my_rent(request):
     user = request.user
 
-    subscriptions = Subscription.objects.filter(user=user)
+    subscriptions = Subscription.objects\
+        .filter(user=user)\
+        .prefetch_related('box')
+    print(subscriptions)
     if request.method == 'POST':
         user_form = UserProfileForm(request.POST, instance=request.user)
         if user_form.is_valid():
@@ -61,7 +67,9 @@ def show_my_rent(request):
 
     return render(request, template_name='my-rent.html', context={
         'subscriptions': subscriptions,
-        'user_form': user_form
+        'user_form': user_form,
+        'payment_soon': (datetime.now() + timedelta(5)).date,
+        'now': datetime.now().date
     })
 
 
