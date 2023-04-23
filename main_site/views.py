@@ -1,15 +1,17 @@
 from datetime import timedelta, datetime
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Count, Max
 from django.db.models import F
 from django.contrib.auth import authenticate, login, logout
-from django.utils import timezone
 
 from .models import *
 from .forms import *
+from .mailer import *
 
 
 def show_main_page(request):
@@ -110,3 +112,25 @@ def logout_view(request):
     logout(request)
 
     return redirect('main_site:main')
+
+
+@login_required
+def open_box(request, box_id):
+    user = request.user
+    try:
+        subscription = Subscription.objects.get(user=user, box__id=box_id, )
+    except ObjectDoesNotExist:
+        return HttpResponse('Это не Ваш бокс или срок аренды окончен')
+    box_number = subscription.box.number
+    qr_link = get_qr_link(box_number)
+    html_content = f'''
+    <h1>Ваш QR для открытия бокса №{box_number}</h1>
+    <img src="{qr_link}">
+    '''
+    send_email(
+        f'QR для открытия бокса №{box_number}',
+        user.email,
+        text_content=f'Привет,{user.username}',
+        html_content=html_content,
+    )
+    return HttpResponse(html_content)

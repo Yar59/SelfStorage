@@ -11,5 +11,6 @@ urlpatterns = [
     path('faq/', show_faq, name='faq'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    path('register/', register_user, name='register')
+    path('register/', register_user, name='register'),
+    path('open/<int:box_id>/', open_box, name='open_box')
 ]
