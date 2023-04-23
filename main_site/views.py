@@ -46,10 +46,9 @@ def show_boxes(request):
 
 def show_my_rent(request):
     user = request.user
-    print(user)
+
     subscriptions = Subscription.objects.filter(user=user)
     if request.method == 'POST':
-        print(request.POST)
         user_form = UserProfileForm(request.POST, instance=request.user)
         if user_form.is_valid():
             user_form.save()
@@ -57,7 +56,6 @@ def show_my_rent(request):
             return redirect('main_site:my_rent')
         else:
             messages.error(request, 'Заполните все поля')
-            print('not work :c')
     else:
         user_form = UserProfileForm(instance=request.user)
 

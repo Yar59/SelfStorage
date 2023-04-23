@@ -15,7 +15,7 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="{% url 'main_site:main' %}">
 			<img src="{% static 'img/Vector.svg' %}" alt="[]">
 			<img src="{% static 'img/SelfStorage.svg' %}" alt="SelfStorage">
 		</a>
@@ -36,7 +36,7 @@
 					<a class="nav-link SelfStorage_black" href="#">Правила хранения</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="#">Арендовать бокс</a>
+					<a class="nav-link SelfStorage_black" href="{% url 'main_site:boxes' %}">Арендовать бокс</a>
 				</li>
 				<li class="nav-item d-flex align-items-center me-5">
 					<a href="#" class="me-2 mb-1">
@@ -60,8 +60,8 @@
 		<div class="col-lg-3 d-flex flex-column nav nav-pills">
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_orange SelfStorage_tab active" id="LK-tab" data-bs-toggle="pill" data-bs-target="#LK" type="button" role="tab" aria-controls="LK" aria-selected="true">Личный кабинет</button>
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_grey SelfStorage_tab" id="Rent-tab" data-bs-toggle="pill" data-bs-target="#Rent" type="button" role="tab" aria-controls="Rent" aria-selected="false">Моя аренда</button>
-			<a href="./faq.html" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">FAQ</a>
-			<a href="#" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">Выйти</a>
+			<a href="{% url 'main_site:faq' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">FAQ</a>
+			<a href="{% url 'main_site:logout' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">Выйти</a>
 		</div>
 		<div class="col-lg-9">
 			<div class="card tab-content p-5">
