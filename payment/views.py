@@ -47,13 +47,20 @@ def pay_success(request):
         box_pk = session['metadata']['box_pk']
         box = Box.objects.get(pk=box_pk)
         user = User.objects.get(id=user_id)
-        Subscription.objects.get_or_create(
-            box=box,
-            start_date=datetime.now(),
-            end_date=datetime.now() + timedelta(days=30),
-            type='Подписка',
-            user=user
-        )
+
+        try:
+            subscription = Subscription.objects.get(box=box, user=user)
+            subscription.end_date = subscription.end_date + timedelta(days=30)
+            subscription.save()
+
+        except Subscription.DoesNotExist:
+            Subscription.objects.create(
+                box=box,
+                user=user,
+                start_date=datetime.now(),
+                end_date=datetime.now() + timedelta(days=30),
+                type='Подписка'
+            )
 
     return render(request, 'success.html')
 

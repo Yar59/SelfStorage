@@ -57,7 +57,6 @@ def show_my_rent(request):
     subscriptions = Subscription.objects\
         .filter(user=user)\
         .prefetch_related('box')
-    print(subscriptions)
     if request.method == 'POST':
         user_form = UserProfileForm(request.POST, instance=request.user)
         if user_form.is_valid():
@@ -97,7 +96,6 @@ def login_view(request):
 
 def register_user(request):
     if request.method == 'POST':
-        print('dict', request.POST)
         try:
             User.objects.get(email=request.POST['EMAIL_CREATE'])
             return HttpResponse('This email is already taken')
