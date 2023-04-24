@@ -31,13 +31,21 @@
 					<b>8 (800) 000-00-00</b>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="{% url 'main_site:boxes' %}">Рассчитать стоимость</a>
+					{% if user.is_authenticated %}
+						<a class="nav-link SelfStorage_black" href="{% url 'main_site:boxes' %}">Рассчитать стоимость</a>
+					{% else %}
+						<a class="nav-link SelfStorage_black" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Рассчитать стоимость</a>
+					{% endif %}
 				</li>
 				<li class="nav-item me-5">
 					<a class="nav-link SelfStorage_black" href="{% url 'main_site:faq' %}">Правила хранения</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="{% url 'main_site:boxes' %}">Арендовать бокс</a>
+					{% if user.is_authenticated %}
+						<a class="nav-link SelfStorage_black" href="{% url 'main_site:boxes' %}">Арендовать бокс</a>
+					{% else %}
+						<a class="nav-link SelfStorage_black" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Арендовать бокс</a>
+					{% endif %}
 				</li>
 				<li class="nav-item d-flex align-items-center me-5">
 					<a href="#" class="me-2 mb-1">
@@ -93,12 +101,21 @@
 	<div class="row">
 		<div class="col-6 col-md-4 d-flex flex-column">
 			<p><a href="#" class="link-dark text-decoration-none">Тарифы</a></p>
-			<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Рассчитать стоимость</a></p>
-			<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Арендовать бокс</a></p>
+			{% if user.is_authenticated %}
+				<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Рассчитать стоимость</a></p>
+				<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Арендовать бокс</a></p>
+			{% else %}
+				<p><a href="" class="link-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignModal">Рассчитать стоимость</a></p>
+				<p><a href="" class="link-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignModal">Арендовать бокс</a></p>
+			{% endif %}
 		</div>
 		<div class="col-6 col-md-4 d-flex flex-column">
 			<p><a href="{% url 'main_site:faq' %}" class="link-dark text-decoration-none">Правила хранения</a></p>
-			<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Адреса складов</a></p>
+			{% if user.is_authenticated %}
+				<p><a href="{% url 'main_site:boxes' %}" class="link-dark text-decoration-none">Адреса складов</a></p>
+			{% else %}
+				<p><a href="#" class="link-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignModal">Адреса складов</a></p>
+			{% endif %}
 			<p><a href="#" class="link-dark text-decoration-none">Отзывы</a></p>
 		</div>
 		<div class="col-6 col-md-4 d-flex flex-column">
