@@ -31,6 +31,7 @@ def show_main_page(request):
     return render(request, template_name='index.html', context=storage)
 
 
+@login_required
 def show_boxes(request):
     storages = Storage.objects.prefetch_related('boxes')
     context = {'storages': {}}
@@ -49,6 +50,7 @@ def show_boxes(request):
     return render(request, template_name='boxes.html', context=context)
 
 
+@login_required
 def show_my_rent(request):
     user = request.user
 
@@ -105,7 +107,7 @@ def register_user(request):
         user = authenticate(request, email=request.POST['EMAIL_CREATE'], password=request.POST['PASSWORD_CREATE'])
         if user is not None:
             login(request, user)
-        return redirect('main_site:my_rent')
+        return redirect('main_site:main')
 
 
 def logout_view(request):
