@@ -8,6 +8,7 @@ from main_site.models import Box, Subscription, User
 from self_storage.settings import STRIPE_API_KEY
 
 
+@login_required
 def make_payment(request, box_pk):
     user_id = request.user.id
     box = Box.objects.get(pk=box_pk)
@@ -57,7 +58,6 @@ def pay_success(request):
     return render(request, 'success.html')
 
 
-@login_required
 def cancelled(request):
     return render(request, 'cancelled.html')
 
