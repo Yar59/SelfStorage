@@ -8,6 +8,11 @@ env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STRIPE_API_KEY = env('STRIPE_API_KEY')
+
+SHOP_ID = env('SHOP_ID')
+
+PAYMENT_OATH_TOKEN = env('PAYMENT_OATH_TOKEN')
 
 SECRET_KEY = env('SECRET_KEY')
 
@@ -24,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'main_site.apps.MainSiteConfig',
+    'payment.apps.PaymentConfig',
     'phonenumber_field',
 ]
 
